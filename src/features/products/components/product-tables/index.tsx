@@ -7,16 +7,18 @@ import { useDataTable } from '@/hooks/use-data-table';
 
 import { ColumnDef } from '@tanstack/react-table';
 import { parseAsInteger, useQueryState } from 'nuqs';
-interface ProductTableParams<TData, TValue> {
+
+interface TransectionTableParams<TData, TValue> {
   data: TData[];
   totalItems: number;
   columns: ColumnDef<TData, TValue>[];
 }
-export function ProductTable<TData, TValue>({
+
+export function TransectionTable<TData, TValue>({
   data,
   totalItems,
   columns
-}: ProductTableParams<TData, TValue>) {
+}: TransectionTableParams<TData, TValue>) {
   const [pageSize] = useQueryState('perPage', parseAsInteger.withDefault(10));
 
   const pageCount = Math.ceil(totalItems / pageSize);
@@ -28,6 +30,8 @@ export function ProductTable<TData, TValue>({
     shallow: false, //Setting to false triggers a network request with the updated querystring.
     debounceMs: 500
   });
+
+  console.log('table', columns);
 
   return (
     <DataTable table={table}>

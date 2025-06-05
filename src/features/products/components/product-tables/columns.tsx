@@ -1,53 +1,43 @@
 'use client';
 import { Badge } from '@/components/ui/badge';
 import { DataTableColumnHeader } from '@/components/ui/table/data-table-column-header';
-import { Product } from '@/constants/data';
+import { Transection } from '@/constants/data';
 import { Column, ColumnDef } from '@tanstack/react-table';
-import { CheckCircle2, Text, XCircle } from 'lucide-react';
-import Image from 'next/image';
+import { CheckCircle2, XCircle, ArrowUp, ArrowDown } from 'lucide-react';
 import { CellAction } from './cell-action';
 import { CATEGORY_OPTIONS } from './options';
 
-export const columns: ColumnDef<Product>[] = [
+export const columns: ColumnDef<Transection>[] = [
   {
-    accessorKey: 'photo_url',
-    header: 'IMAGE',
-    cell: ({ row }) => {
-      return (
-        <div className='relative aspect-square'>
-          <Image
-            src={row.getValue('photo_url')}
-            alt={row.getValue('name')}
-            fill
-            className='rounded-lg'
-          />
-        </div>
-      );
-    }
-  },
-  {
-    id: 'name',
-    accessorKey: 'name',
-    header: ({ column }: { column: Column<Product, unknown> }) => (
-      <DataTableColumnHeader column={column} title='Name' />
+    id: 'transection_type',
+    accessorKey: 'transection_type',
+    header: ({ column }: { column: Column<Transection, unknown> }) => (
+      <DataTableColumnHeader column={column} title='Type' />
     ),
-    cell: ({ cell }) => <div>{cell.getValue<Product['name']>()}</div>,
-    meta: {
-      label: 'Name',
-      placeholder: 'Search products...',
-      variant: 'text',
-      icon: Text
+    cell: ({ cell }) => {
+      const status = cell.getValue<Transection['transection_type']>();
+      const Icon = status === 'deposit' ? ArrowDown : ArrowUp;
+
+      return (
+        <Badge
+          variant='outline'
+          className={`capitalize ${status === 'deposit' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}
+        >
+          <Icon />
+          {status}
+        </Badge>
+      );
     },
     enableColumnFilter: true
   },
   {
     id: 'category',
     accessorKey: 'category',
-    header: ({ column }: { column: Column<Product, unknown> }) => (
+    header: ({ column }: { column: Column<Transection, unknown> }) => (
       <DataTableColumnHeader column={column} title='Category' />
     ),
     cell: ({ cell }) => {
-      const status = cell.getValue<Product['category']>();
+      const status = cell.getValue<Transection['category']>();
       const Icon = status === 'active' ? CheckCircle2 : XCircle;
 
       return (
@@ -65,12 +55,26 @@ export const columns: ColumnDef<Product>[] = [
     }
   },
   {
-    accessorKey: 'price',
-    header: 'PRICE'
+    accessorKey: 'amount',
+    header: 'AMOUNT'
   },
   {
-    accessorKey: 'description',
-    header: 'DESCRIPTION'
+    accessorKey: 'account',
+    header: 'ACCOUNT'
+  },
+  {
+    accessorKey: 'note',
+    header: 'NOTE',
+    cell: ({ cell }) => {
+      const status = cell.getValue<Transection['note']>();
+
+      return (
+        <span>
+          {status.slice(0, 30)}
+          {status.length > 30 && '...'}
+        </span>
+      );
+    }
   },
 
   {

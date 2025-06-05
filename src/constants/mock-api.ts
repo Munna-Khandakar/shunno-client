@@ -9,46 +9,44 @@ export const delay = (ms: number) =>
   new Promise((resolve) => setTimeout(resolve, ms));
 
 // Define the shape of Product data
-export type Product = {
-  photo_url: string;
-  name: string;
-  description: string;
-  created_at: string;
-  price: number;
+export type Transection = {
   id: number;
   category: string;
+  account: string;
+  amount: string;
+  transection_type: string;
+  note: string;
+  created_at: string;
   updated_at: string;
 };
 
 // Mock product data store
 export const fakeProducts = {
-  records: [] as Product[], // Holds the list of product objects
+  records: [] as Transection[], // Holds the list of product objects
 
   // Initialize with sample data
   initialize() {
-    const sampleProducts: Product[] = [];
-    function generateRandomProductData(id: number): Product {
+    const sampleProducts: Transection[] = [];
+
+    function generateRandomProductData(id: number): Transection {
       const categories = [
-        'Electronics',
-        'Furniture',
-        'Clothing',
-        'Toys',
-        'Groceries',
-        'Books',
-        'Jewelry',
-        'Beauty Products'
+        'Turf Ground',
+        'Swimming Pool',
+        'Shoes',
+        'Employee Salary',
+        'Electric Bill'
       ];
 
       return {
         id,
-        name: faker.commerce.productName(),
-        description: faker.commerce.productDescription(),
+        category: faker.helpers.arrayElement(categories),
+        amount: faker.finance.amount(),
+        account: faker.finance.accountName(),
+        transection_type: faker.finance.transactionType(),
+        note: faker.finance.transactionDescription(),
         created_at: faker.date
           .between({ from: '2022-01-01', to: '2023-12-31' })
           .toISOString(),
-        price: parseFloat(faker.commerce.price({ min: 5, max: 500, dec: 2 })),
-        photo_url: `https://api.slingacademy.com/public/sample-products/${id}.png`,
-        category: faker.helpers.arrayElement(categories),
         updated_at: faker.date.recent().toISOString()
       };
     }

@@ -1,13 +1,13 @@
 import { NavItem } from '@/types';
 
-export type Product = {
-  photo_url: string;
-  name: string;
-  description: string;
-  created_at: string;
-  price: number;
+export type Transection = {
   id: number;
   category: string;
+  account: string;
+  amount: string;
+  transection_type: string;
+  note: string;
+  created_at: string;
   updated_at: string;
 };
 
@@ -22,8 +22,8 @@ export const navItems: NavItem[] = [
     items: [] // Empty array as there are no child items for Dashboard
   },
   {
-    title: 'Product',
-    url: '/dashboard/product',
+    title: 'Transection',
+    url: '/dashboard/transection',
     icon: 'product',
     shortcut: ['p', 'p'],
     isActive: false,
