@@ -1,6 +1,7 @@
-import { fakeProducts, Transection } from '@/constants/mock-api';
+import { fakeProducts } from '@/constants/mock-api';
 import { notFound } from 'next/navigation';
 import ProductForm from './product-form';
+import { Transection } from '@/types/Transection';
 
 type TProductViewPageProps = {
   transectionId: string;

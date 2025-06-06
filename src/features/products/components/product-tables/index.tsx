@@ -31,8 +31,6 @@ export function TransectionTable<TData, TValue>({
     debounceMs: 500
   });
 
-  console.log('table', columns);
-
   return (
     <DataTable table={table}>
       <DataTableToolbar table={table} />

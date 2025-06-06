@@ -2,23 +2,12 @@
 // 🛑 Nothing in here has anything to do with Nextjs, it's just a fake database
 ////////////////////////////////////////////////////////////////////////////////
 
-import { faker } from '@faker-js/faker';
-import { matchSorter } from 'match-sorter'; // For filtering
+import { faker } from "@faker-js/faker";
+import { matchSorter } from "match-sorter";
+import { Transection } from "@/types/Transection"; // For filtering
 
 export const delay = (ms: number) =>
   new Promise((resolve) => setTimeout(resolve, ms));
-
-// Define the shape of Product data
-export type Transection = {
-  id: number;
-  category: string;
-  account: string;
-  amount: string;
-  transection_type: string;
-  note: string;
-  created_at: string;
-  updated_at: string;
-};
 
 // Mock product data store
 export const fakeProducts = {
@@ -30,24 +19,24 @@ export const fakeProducts = {
 
     function generateRandomProductData(id: number): Transection {
       const categories = [
-        'Turf Ground',
-        'Swimming Pool',
-        'Shoes',
-        'Employee Salary',
-        'Electric Bill'
+        "Turf Ground",
+        "Swimming Pool",
+        "Shoes",
+        "Employee Salary",
+        "Electric Bill",
       ];
 
       return {
         id,
         category: faker.helpers.arrayElement(categories),
-        amount: faker.finance.amount(),
+        amount: Number(faker.finance.amount()),
         account: faker.finance.accountName(),
         transection_type: faker.finance.transactionType(),
         note: faker.finance.transactionDescription(),
         created_at: faker.date
-          .between({ from: '2022-01-01', to: '2023-12-31' })
+          .between({ from: "2022-01-01", to: "2023-12-31" })
           .toISOString(),
-        updated_at: faker.date.recent().toISOString()
+        updated_at: faker.date.recent().toISOString(),
       };
     }
 
@@ -62,7 +51,7 @@ export const fakeProducts = {
   // Get all products with optional category filtering and search
   async getAll({
     categories = [],
-    search
+    search,
   }: {
     categories?: string[];
     search?: string;
@@ -72,14 +61,14 @@ export const fakeProducts = {
     // Filter products based on selected categories
     if (categories.length > 0) {
       products = products.filter((product) =>
-        categories.includes(product.category)
+        categories.includes(product.category),
       );
     }
 
     // Search functionality across multiple fields
     if (search) {
       products = matchSorter(products, search, {
-        keys: ['name', 'description', 'category']
+        keys: ["name", "description", "category"],
       });
     }
 
@@ -91,7 +80,7 @@ export const fakeProducts = {
     page = 1,
     limit = 10,
     categories,
-    search
+    search,
   }: {
     page?: number;
     limit?: number;
@@ -99,10 +88,10 @@ export const fakeProducts = {
     search?: string;
   }) {
     await delay(1000);
-    const categoriesArray = categories ? categories.split('.') : [];
+    const categoriesArray = categories ? categories.split(".") : [];
     const allProducts = await this.getAll({
       categories: categoriesArray,
-      search
+      search,
     });
     const totalProducts = allProducts.length;
 
@@ -117,11 +106,11 @@ export const fakeProducts = {
     return {
       success: true,
       time: currentTime,
-      message: 'Sample data for testing and learning purposes',
+      message: "Sample data for testing and learning purposes",
       total_products: totalProducts,
       offset,
       limit,
-      products: paginatedProducts
+      products: paginatedProducts,
     };
   },
 
@@ -135,7 +124,7 @@ export const fakeProducts = {
     if (!product) {
       return {
         success: false,
-        message: `Product with ID ${id} not found`
+        message: `Product with ID ${id} not found`,
       };
     }
 
@@ -146,9 +135,9 @@ export const fakeProducts = {
       success: true,
       time: currentTime,
       message: `Product with ID ${id} found`,
-      product
+      product,
     };
-  }
+  },
 };
 
 // Initialize sample products

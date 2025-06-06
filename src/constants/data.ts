@@ -1,16 +1,5 @@
 import { NavItem } from '@/types';
 
-export type Transection = {
-  id: number;
-  category: string;
-  account: string;
-  amount: string;
-  transection_type: string;
-  note: string;
-  created_at: string;
-  updated_at: string;
-};
-
 //Info: The following data is used for the sidebar navigation and Cmd K bar.
 export const navItems: NavItem[] = [
   {

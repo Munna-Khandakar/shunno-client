@@ -1,47 +1,47 @@
-'use client';
-import { Badge } from '@/components/ui/badge';
-import { DataTableColumnHeader } from '@/components/ui/table/data-table-column-header';
-import { Transection } from '@/constants/data';
-import { Column, ColumnDef } from '@tanstack/react-table';
-import { CheckCircle2, XCircle, ArrowUp, ArrowDown } from 'lucide-react';
-import { CellAction } from './cell-action';
-import { CATEGORY_OPTIONS } from './options';
+"use client";
+import { Badge } from "@/components/ui/badge";
+import { DataTableColumnHeader } from "@/components/ui/table/data-table-column-header";
+import { Column, ColumnDef } from "@tanstack/react-table";
+import { CheckCircle2, XCircle, Plus, Minus } from "lucide-react";
+import { CellAction } from "./cell-action";
+import { CATEGORY_OPTIONS } from "./options";
+import { Transection } from "@/types/Transection";
 
 export const columns: ColumnDef<Transection>[] = [
   {
-    id: 'transection_type',
-    accessorKey: 'transection_type',
+    id: "transection_type",
+    accessorKey: "transection_type",
     header: ({ column }: { column: Column<Transection, unknown> }) => (
-      <DataTableColumnHeader column={column} title='Type' />
+      <DataTableColumnHeader column={column} title="Type" />
     ),
     cell: ({ cell }) => {
-      const status = cell.getValue<Transection['transection_type']>();
-      const Icon = status === 'deposit' ? ArrowDown : ArrowUp;
+      const status = cell.getValue<Transection["transection_type"]>();
+      const Icon = status === "deposit" ? Plus : Minus;
 
       return (
         <Badge
-          variant='outline'
-          className={`capitalize ${status === 'deposit' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}
+          variant="outline"
+          className={`capitalize ${status === "deposit" ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"}`}
         >
           <Icon />
-          {status}
+          {status === "deposit" ? "In" : "Out"}
         </Badge>
       );
     },
-    enableColumnFilter: true
+    enableColumnFilter: true,
   },
   {
-    id: 'category',
-    accessorKey: 'category',
+    id: "category",
+    accessorKey: "category",
     header: ({ column }: { column: Column<Transection, unknown> }) => (
-      <DataTableColumnHeader column={column} title='Category' />
+      <DataTableColumnHeader column={column} title="Category" />
     ),
     cell: ({ cell }) => {
-      const status = cell.getValue<Transection['category']>();
-      const Icon = status === 'active' ? CheckCircle2 : XCircle;
+      const status = cell.getValue<Transection["category"]>();
+      const Icon = status === "active" ? CheckCircle2 : XCircle;
 
       return (
-        <Badge variant='outline' className='capitalize'>
+        <Badge variant="outline" className="capitalize">
           <Icon />
           {status}
         </Badge>
@@ -49,36 +49,36 @@ export const columns: ColumnDef<Transection>[] = [
     },
     enableColumnFilter: true,
     meta: {
-      label: 'categories',
-      variant: 'multiSelect',
-      options: CATEGORY_OPTIONS
-    }
+      label: "categories",
+      variant: "multiSelect",
+      options: CATEGORY_OPTIONS,
+    },
   },
   {
-    accessorKey: 'amount',
-    header: 'AMOUNT'
+    accessorKey: "amount",
+    header: "AMOUNT",
   },
   {
-    accessorKey: 'account',
-    header: 'ACCOUNT'
+    accessorKey: "account",
+    header: "ACCOUNT",
   },
   {
-    accessorKey: 'note',
-    header: 'NOTE',
+    accessorKey: "note",
+    header: "NOTE",
     cell: ({ cell }) => {
-      const status = cell.getValue<Transection['note']>();
+      const status = cell.getValue<Transection["note"]>();
 
       return (
         <span>
           {status.slice(0, 30)}
-          {status.length > 30 && '...'}
+          {status.length > 30 && "..."}
         </span>
       );
-    }
+    },
   },
 
   {
-    id: 'actions',
-    cell: ({ row }) => <CellAction data={row.original} />
-  }
+    id: "actions",
+    cell: ({ row }) => <CellAction data={row.original} />,
+  },
 ];

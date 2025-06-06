@@ -1,12 +1,12 @@
-import { Transection } from '@/constants/data';
 import { fakeProducts } from '@/constants/mock-api';
 import { searchParamsCache } from '@/lib/searchparams';
 import { TransectionTable } from './product-tables';
 import { columns } from './product-tables/columns';
+import { Transection } from "@/types/Transection";
 
 type ProductListingPage = {};
 
-export default async function ProductListingPage({}: ProductListingPage) {
+export default async function TransectionListingPage({}: ProductListingPage) {
   // Showcasing the use of search params cache in nested RSCs
   const page = searchParamsCache.get('page');
   const search = searchParamsCache.get('name');
