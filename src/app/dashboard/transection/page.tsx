@@ -41,6 +41,12 @@ export default async function Page(props: pageProps) {
           >
             <IconPlus className='mr-2 h-4 w-4' /> Add New
           </Link>
+          <Link
+            href='/dashboard/transection/new'
+            className={cn(buttonVariants(), 'text-xs md:text-sm')}
+          >
+            <IconPlus className='mr-2 h-4 w-4' /> Add New
+          </Link>
         </div>
         <Separator />
         <Suspense

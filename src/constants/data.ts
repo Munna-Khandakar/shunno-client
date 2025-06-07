@@ -13,7 +13,7 @@ export const navItems: NavItem[] = [
   {
     title: 'Transection',
     url: '/dashboard/transection',
-    icon: 'product',
+    icon: 'locationDollar',
     shortcut: ['p', 'p'],
     isActive: false,
     items: [] // No child items
