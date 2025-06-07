@@ -33,10 +33,8 @@ import { navItems } from '@/constants/data';
 import { useMediaQuery } from '@/hooks/use-media-query';
 import { useUser } from '@clerk/nextjs';
 import {
-  IconBell,
   IconChevronRight,
   IconChevronsDown,
-  IconCreditCard,
   IconLogout,
   IconUserCircle
 } from '@tabler/icons-react';
@@ -45,7 +43,7 @@ import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import * as React from 'react';
 import { Icons } from '../icons';
-import { GalleryVerticalEnd } from 'lucide-react';
+import Image from "next/image";
 
 export default function AppSidebar() {
   const pathname = usePathname();
@@ -67,7 +65,12 @@ export default function AppSidebar() {
               className='data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground'
             >
               <div className='bg-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg'>
-                <GalleryVerticalEnd className='size-4' />
+                <Image
+                  src={"/assets/logo.jpg"}
+                  className="rounded-lg size-7"
+                  alt={"Rajshahi Turf"}
+                  width={40} height={40}
+                />
               </div>
               <div className='flex flex-col gap-2 leading-none'>
                 <span className='font-semibold'>Rajshahi Turf</span>
@@ -181,14 +184,6 @@ export default function AppSidebar() {
                   >
                     <IconUserCircle className='mr-2 h-4 w-4' />
                     Profile
-                  </DropdownMenuItem>
-                  <DropdownMenuItem>
-                    <IconCreditCard className='mr-2 h-4 w-4' />
-                    Billing
-                  </DropdownMenuItem>
-                  <DropdownMenuItem>
-                    <IconBell className='mr-2 h-4 w-4' />
-                    Notifications
                   </DropdownMenuItem>
                 </DropdownMenuGroup>
                 <DropdownMenuSeparator />
